@@ -1,46 +1,92 @@
-# Unscented Kalman Filter Project Starter Code
-Self-Driving Car Engineer Nanodegree Program
+# Unscented Kalman Filter Project
+----
+This project utilizes a Unscented kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements.
 
-In this project utilize an Unscented Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
+# Overview of Kalman Filter
+----
 
-This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
+[image1]: ./data/kalman_filter_algo.PNG "Kalman Filter"
 
-This repository includes two files that can be used to set up and intall [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) for either Linux or Mac systems. For windows you can use either Docker, VMware, or even [Windows 10 Bash on Ubuntu](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) to install uWebSocketIO. Please see [this concept in the classroom](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/16cf4a78-4fc7-49e1-8621-3450ca938b77) for the required version and installation scripts.
+![Kalman Filter Overview][image1]
 
-Once the install for uWebSocketIO is complete, the main program can be built and ran by doing the following from the project top directory.
+- Imagine you are in a car equipped with sensors on the outside. The car sensors can detect objects moving around: for example, the sensors might detect a pedestrian, or even a bicycle. 
+- The Unscented Kalman filter demonstrated in this repo uses the CTRV motion model
+- For variety, let's step through the Unscented Kalman Filter algorithm using the bicycle example.
+- The Kalman Filter algorithm will go through the following steps:   
+     **1] First Measurement** : the filter will receive initial measurements of the bicycle's position relative to the car. These measurements will come from a radar or lidar sensor.    
+     **2] Initialize State and Covariance matrices** : the filter will initialize the bicycle's position based on the first measurement. Then the car will receive another sensor measurement after a time period Δt.   
+     **3] Predict** : the algorithm will predict where the bicycle will be after time Δt.         
+     **4] Update** : the filter compares the "predicted" location with what the sensor measurement says.
+     
+# Precition Step
+----
 
-1. mkdir build
-2. cd build
-3. cmake ..
-4. make
-5. ./UnscentedKF
+- Prediction step includes following steps:  
+   1] Generate Sigma Points  
+   2] Predict Sigma Points  
+   3] Predict Mean and Co-variance  
+   
+# Updation Step
+----
 
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
+- Updation step includes following steps:    
+  1] Predict Measurement  
+  2] Update State  
+  
+# Unscented Kalman Filter RoadMap:
 
-Note that the programs that need to be written to accomplish the project are src/ukf.cpp, src/ukf.h, tools.cpp, and tools.h
+[image2]: ./data/Ukf_roadmap.PNG "Kalman Filter"
 
-The program main.cpp has already been filled out, but feel free to modify it.
+![Ukf_roadmap][image2]
+  
 
-Here is the main protcol that main.cpp uses for uWebSocketIO in communicating with the simulator.
-
-
-INPUT: values provided by the simulator to the c++ program
-
-["sensor_measurement"] => the measurment that the simulator observed (either lidar or radar)
+   
 
 
-OUTPUT: values provided by the c++ program to the simulator
+# Program Architecture
+----
 
-["estimate_x"] <= kalman filter estimated position x
-["estimate_y"] <= kalman filter estimated position y
-["rmse_x"]
-["rmse_y"]
-["rmse_vx"]
-["rmse_vy"]
+- The src folder has the source code of the project
+- It has the following files:
+  1] [json.hpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/json.hpp)    
+  2] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp)    
+  3] [measurement_package.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/measurement_package.h)   
+  4] [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp)     	 
+  4] [tools.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.h)     	 
+  4] [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)     	 
+  4] [ukf.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.h)     	 
 
----
+# Source Code File Description
+----
+1] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp):
+   - This is where the code execution starts
+   - This file Communicates with the Term 2 Simulator receiving data measurements
+   - main.cpp reads in the sensor [data](https://github.com/jayshah19949596/Extended-Kalman-Filter/blob/master/data/obj_pose-laser-radar-synthetic-input.txt) which is a txt file  
+   - After reading the sensor data the code figures out whether the sensor data is LIDAR or RADAR and accordingly set the the state matrix and sends a sensor measurement to FusionEKF.cpp
+   - Calls `ProcessMeasurement()` function of class `UKF` to process the data. The body `ProcessMeasurement()` is defined in [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp) file 
+   - Calls `CalculateRMSE()` function of class `Tools` to calculate RMSE. The body `CalculateRMSE()` is defined in [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp) file 
+   
+2] [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)	
+   - Initializes the kalman filter
+   - Calls `Predict()` function of `UKF` class. The body `Predict()` is defined in [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp) file
+   - Calls `UpdateRadar()` function of `UKF` class if the sensor data is RADAR. The body `UpdateRadar()` is defined in [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp) file. 
+   - Calls `UpdateLidar()` function of `UKF` class if the sensor data is LASER. The body `UpdateLidar()` is defined in [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp) file.
 
-## Other Important Dependencies
+4] [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)
+   - Defines the function `CalculateRMSE()` function of class `Tools` to calculate RMSE 
+
+
+# Required Installation and Detials
+
+- Download the Simulator [here](https://github.com/udacity/self-driving-car-sim/releases)
+- [uWebSocketIO](https://github.com/uNetworking/uWebSockets) package is required so that main.cpp can communicate with the simulator
+- [uWebSocketIO](https://github.com/uNetworking/uWebSockets) package facilitates the connection between the simulator and [main.cpp](https://github.com/jayshah19949596/Extended-Kalman-Filter/blob/master/src/main.cpp)
+- uWebSocketIO installtion on Linux: From the project repository directory run the script `install-ubuntu.sh` which will do the installtion for you
+- uWebSocketIO installtion on Mac: From the project repository directory run the script `install-mac.sh` which will do the installtion for you
+- uWebSocketIO installtion on Windows: Follow the instruction on the [link](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10) to install bash on the Windows and with the bash run the script `install-ubuntu.sh` which will do the installtion for you
+
+# Important Dependencies
+----
 * cmake >= 3.5
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
 * make >= 4.1 (Linux, Mac), 3.81 (Windows)
@@ -51,42 +97,20 @@ OUTPUT: values provided by the c++ program to the simulator
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
-
-## Basic Build Instructions
-
+  
+  
+# Basic Build Instructions
+----
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make`
-4. Run it: `./UnscentedKF` Previous versions use i/o from text files.  The current state uses i/o
-from the simulator.
+3. Compile: `cmake .. && make` 
+   * On windows, you may need to run: `cmake .. -G "Unix Makefiles" && make`
+4. Run it: `./UnscentedKF `
 
-## Editor Settings
 
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
+# Running the Simulator 
+---
 
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html) as much as possible.
-
-## Generating Additional Data
-
-This is optional!
-
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
-
-## Project Instructions and Rubric
-
-This information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/c3eb3583-17b2-4d83-abf7-d852ae1b9fff/concepts/f437b8b0-f2d8-43b0-9662-72ac4e4029c1)
-for instructions and the project rubric.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
+1] Open the Simulator after you run the `./UnscentedKF ` command   
+2] Click on "SELECT" Option   
+3] Click on "START" Option  
