@@ -100,12 +100,21 @@ Following goals were achieved as a part of implementation:
 - The src folder has the source code of the project  
 - It has the following files:   
   1] [json.hpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/json.hpp)      
+<<<<<<< HEAD
   2] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp)     
   3] [measurement_package.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/measurement_package.h)        
   4] [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp)     	 
   4] [tools.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.h)       	 
   4] [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)      	 
   4] [ukf.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.h)     	 
+=======
+  2] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp)      
+  3] [measurement_package.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/measurement_package.h)         
+  4] [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp)     
+  5] [tools.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.h)      
+  6] [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)      
+  7] [ukf.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.h)      
+>>>>>>> 6b24c9a860083cc9c132b3a2c4cfdd7e02316db6
 
 # Source Code File Description
 ----
@@ -113,7 +122,7 @@ Following goals were achieved as a part of implementation:
 1] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp):
    - This is where the code execution starts
    - This file Communicates with the Term 2 Simulator receiving data measurements
-   - main.cpp reads in the sensor [data](https://github.com/jayshah19949596/Extended-Kalman-Filter/blob/master/data/obj_pose-laser-radar-synthetic-input.txt) which is a txt file  
+   - main.cpp reads in the sensor [data](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/data/obj_pose-laser-radar-synthetic-input.txt) which is a txt file  
    - After reading the sensor data the code figures out whether the sensor data is LIDAR or RADAR and accordingly set the the state matrix and sends a sensor measurement to FusionEKF.cpp
    - Calls `ProcessMeasurement()` function of class `UKF` to process the data. The body `ProcessMeasurement()` is defined in [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp) file 
    - Calls `CalculateRMSE()` function of class `Tools` to calculate RMSE. The body `CalculateRMSE()` is defined in [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp) file 
@@ -133,7 +142,7 @@ Following goals were achieved as a part of implementation:
 
 - Download the Simulator [here](https://github.com/udacity/self-driving-car-sim/releases)
 - [uWebSocketIO](https://github.com/uNetworking/uWebSockets) package is required so that main.cpp can communicate with the simulator
-- [uWebSocketIO](https://github.com/uNetworking/uWebSockets) package facilitates the connection between the simulator and [main.cpp](https://github.com/jayshah19949596/Extended-Kalman-Filter/blob/master/src/main.cpp)
+- [uWebSocketIO](https://github.com/uNetworking/uWebSockets) package facilitates the connection between the simulator and [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp)
 - uWebSocketIO installtion on Linux: From the project repository directory run the script `install-ubuntu.sh` which will do the installtion for you
 - uWebSocketIO installtion on Mac: From the project repository directory run the script `install-mac.sh` which will do the installtion for you
 - uWebSocketIO installtion on Windows: Follow the instruction on the [link](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10) to install bash on the Windows and with the bash run the script `install-ubuntu.sh` which will do the installtion for you
