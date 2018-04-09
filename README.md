@@ -100,21 +100,13 @@ Following goals were achieved as a part of implementation:
 - The src folder has the source code of the project  
 - It has the following files:   
   1] [json.hpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/json.hpp)      
-<<<<<<< HEAD
-  2] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp)     
-  3] [measurement_package.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/measurement_package.h)        
-  4] [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp)     	 
-  4] [tools.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.h)       	 
-  4] [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)      	 
-  4] [ukf.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.h)     	 
-=======
   2] [main.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/main.cpp)      
   3] [measurement_package.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/measurement_package.h)         
   4] [tools.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.cpp)     
   5] [tools.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/tools.h)      
   6] [ukf.cpp](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.cpp)      
   7] [ukf.h](https://github.com/jayshah19949596/Unscented-Kalman-Filter/blob/master/src/ukf.h)      
->>>>>>> 6b24c9a860083cc9c132b3a2c4cfdd7e02316db6
+
 
 # Source Code File Description
 ----
